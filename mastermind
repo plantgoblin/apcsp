@@ -1,0 +1,135 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace mastermind
+{
+    public partial class mastermind : Form
+    {
+
+        List<decimal> ansa = new List<decimal>();
+
+        new Random numgen = new Random();
+
+
+        public mastermind()
+        {
+            InitializeComponent();
+            ansa.Add(numgen.Next(1, 6));
+            ansa.Add(numgen.Next(1, 6));
+            ansa.Add(numgen.Next(1, 6));
+            ansa.Add(numgen.Next(1, 6));
+        }
+
+
+
+
+
+        private void easyradio_CheckedChanged(object sender, EventArgs e)
+        {
+            ansa.Add(numgen.Next(1, 6));
+            ansa.Add(numgen.Next(1, 6));
+            ansa.Add(numgen.Next(1, 6));
+            ansa.Add(numgen.Next(1, 6));
+            input1.Maximum = 5;
+            input2.Maximum = 5;
+            input3.Maximum = 5;
+            input4.Maximum = 5;
+            guesses.Items.Clear();
+            answers.Items.Clear();
+        }
+        private void hardradio_CheckedChanged(object sender, EventArgs e)
+        {
+            ansa.Add(numgen.Next(1, 10));
+            ansa.Add(numgen.Next(1, 10));
+            ansa.Add(numgen.Next(1, 10));
+            ansa.Add(numgen.Next(1, 10));
+            input1.Maximum = 10;
+            input2.Maximum = 10;
+            input3.Maximum = 10;
+            input4.Maximum = 10;
+            guesses.Items.Clear();
+            answers.Items.Clear();
+        }
+
+        private void guessbutton_Click(object sender, EventArgs e)
+        {
+            string response = "";
+            string lastguess = input1.Value.ToString() + " " + input2.Value.ToString() + " " + input3.Value.ToString() + " " + input4.Value.ToString();
+            if (input1.Value == ansa[0])
+            {
+                response += "o ";
+            }
+            else
+            {
+                response += "x ";
+            }
+            if (input2.Value == ansa[1])
+            {
+                response += "o ";
+            }
+            else
+            {
+                response += "x ";
+            }
+            if (input3.Value == ansa[2])
+            {
+                response += "o ";
+            }
+            else
+            {
+                response += "x ";
+            }
+            if (input4.Value == ansa[3])
+            {
+                response += "o ";
+            }
+            else
+            {
+                response += "x ";
+            }
+            guesses.Items.Add(lastguess);
+            answers.Items.Add(response);
+            if(response == "o o o o ")
+            {
+                MessageBox.Show("You Win!");
+            }
+        }
+
+        private void restartbutton_Click(object sender, EventArgs e)
+        {
+            guesses.Items.Clear();
+            answers.Items.Clear();
+            ansa.Clear();
+            if (easyradio.Checked)
+            {
+                ansa.Add(numgen.Next(1, 6));
+                ansa.Add(numgen.Next(1, 6));
+                ansa.Add(numgen.Next(1, 6));
+                ansa.Add(numgen.Next(1, 6));
+                input1.Maximum = 5;
+                input2.Maximum = 5;
+                input3.Maximum = 5;
+                input4.Maximum = 5;
+
+            }
+            else if (hardradio.Checked)
+            {
+                ansa.Add(numgen.Next(1, 10));
+                ansa.Add(numgen.Next(1, 10));
+                ansa.Add(numgen.Next(1, 10));
+                ansa.Add(numgen.Next(1, 10));
+                input1.Maximum = 10;
+                input2.Maximum = 10;
+                input3.Maximum = 10;
+                input4.Maximum = 10;
+            }
+        }
+    }
+}
